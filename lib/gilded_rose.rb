@@ -9,7 +9,7 @@ class GildedRose
       @quality = item.quality
       @sell_in = item.sell_in
       generic_item if item.name == "item" || "foo"
-
+      aged_brie if item.name == "Aged Brie"
       # if item.name == "Aged Brie"
       #   return aged_brie
       # end
@@ -69,11 +69,7 @@ end
 
 def aged_brie
   @sell_in -= 1
-  if @quality < 50
-    return @quality +=1
-  else
-    return @quality
-    # @quality += 1 if @sell_in <= 0
-  end
-@quality += 1 if @sell_in <= 0
+  return @quality if @quality >= 50
+  @quality += 1
+  @quality += 1 if @sell_in <= 0
 end
