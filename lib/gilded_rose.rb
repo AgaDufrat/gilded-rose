@@ -17,7 +17,7 @@ class GildedRose
         when "Sulfuras, Hand of Ragnaros"
           sulfuras
         when "Backstage passes to a TAFKAL80ETC concert"
-          return backstage_pass(item)
+          backstage_pass
       end
 
       if item.name != "Aged Brie" && item.name !=  "Sulfuras, Hand of Ragnaros" && item.name != "Backstage passes to a TAFKAL80ETC concert"
@@ -53,15 +53,9 @@ class GildedRose
     @current_item.update_quality
   end
 
-  def backstage_pass(item)
-    return item.quality = 0 if item.sell_in == 0
-    return if item.quality >= 50
-    item.quality += 1 if item.sell_in
-    return if item.quality >= 50
-    item.quality += 1 if item.sell_in.between?(1, 10)
-    return if item.quality >= 50
-    item.quality += 1 if item.sell_in.between?(1, 6)
-    item.sell_in -= 1
+  def backstage_pass
+    @current_item = Backstage_Pass.new(quality, sell_in)
+    @current_item.update_quality
   end
 
 end
@@ -108,5 +102,25 @@ class Sulfuras
   end
 
   def update_quality
+  end
+end
+
+class Backstage_Pass
+  attr_reader :quality, :sell_in
+
+  def initialize(quality, sell_in)
+    @quality = quality.to_i
+    @sell_in = sell_in.to_i
+  end
+
+  def update_quality
+    return @quality = 0 if @sell_in == 0
+    return if @quality >= 50
+    @quality += 1 if @sell_in
+    return if @quality >= 50
+    @quality += 1 if @sell_in.between?(1, 10)
+    return if @quality >= 50
+    @quality += 1 if @sell_in.between?(1, 6)
+    @sell_in -= 1
   end
 end
