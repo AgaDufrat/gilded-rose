@@ -15,7 +15,7 @@ class GildedRose
         when "Aged Brie"
           aged_brie
         when "Sulfuras, Hand of Ragnaros"
-          return sulfuras
+          sulfuras
         when "Backstage passes to a TAFKAL80ETC concert"
           return backstage_pass(item)
       end
