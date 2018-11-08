@@ -38,7 +38,7 @@ describe GildedRose do
           expect(item.quality).to eq(0)
         end
       end
-    end
+     end
 
     context 'when item is Aged Brie' do
       context 'before sell_in' do
