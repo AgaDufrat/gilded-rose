@@ -20,8 +20,8 @@ class GildedRose
           return backstage_pass(item)
       end
 
-      if item.name != "Aged Brie" && "Sulfuras, Hand of Ragnaros" && "Backstage passes to a TAFKAL80ETC concert"
-          generic_item
+      if item.name != "Aged Brie" && item.name !=  "Sulfuras, Hand of Ragnaros" && item.name != "Backstage passes to a TAFKAL80ETC concert"
+           generic_item
       end
       item.sell_in = @current_item.sell_in
       item.quality = @current_item.quality
@@ -34,12 +34,12 @@ class GildedRose
   end
 
   def quality
-    return item.quality if @current_item
+    return @current_item.quality if @current_item
     @quality
   end
 
   def sell_in
-    return item.sell_in if @current_item
+    return @current_item.sell_in if @current_item
     @sell_in
   end
 
@@ -49,6 +49,8 @@ class GildedRose
   end
 
   def sulfuras
+    @current_item = Sulfuras.new(quality, sell_in)
+    @current_item.update_quality
   end
 
   def backstage_pass(item)
@@ -94,5 +96,17 @@ class Aged_Brie
     return if @quality >= 50
     @quality += 1 if @sell_in <= 0
     @sell_in -= 1
+  end
+end
+
+class Sulfuras
+  attr_reader :quality, :sell_in
+
+  def initialize(quality, sell_in)
+    @quality = quality.to_i
+    @sell_in = sell_in.to_i
+  end
+
+  def update_quality
   end
 end
